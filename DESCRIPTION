@@ -1,0 +1,29 @@
+Package: Rclickup
+Title: works with clickup api
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Konstantin",
+           family = "Ryabov",
+           role = c("aut", "cre"),
+           email = "chachabooms@gmail.com")
+Description: Works with Сlickup API.
+Depends: R (>= 4.1)
+Imports:
+  dplyr (>= 1.0.4),
+  purrr (>= 0.3.4),
+  lubridate (>= 1.7.9),
+  httr (>= 1.4.2),
+  tidyr (>= 1.1.2),
+  tibble (>= 3.0.6),
+  stringr (>= 1.4.0),
+  googlesheets4 (>= 0.3.0),
+  glue (>= 1.4.2),
+  prettyunits (>= 1.1.1),
+  fuzzyjoin (>= 0.1.6),
+  BiocManager (>= 1.30.12),
+  jsonlite (>= 1.7.2)
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1

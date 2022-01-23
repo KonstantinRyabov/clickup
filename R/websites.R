@@ -10,6 +10,7 @@ pages <- 0:100
 time_local <- "Europe/Moscow"
 
 ### get list and number of tasks ----
+# bug with length of list, block doesn't work
 list <- httr::GET(
   glue::glue("https://api.clickup.com/api/v2/list/{list_id}"),
   httr::add_headers(Authorization = auth_clickup)

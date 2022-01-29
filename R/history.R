@@ -1,11 +1,12 @@
 # const ----
-auth_clickup <- Sys.getenv("CLICKUP")
+credentals <- jsonlite::fromJSON(Sys.getenv("credentals"))
+auth_clickup <- credentals[["CLICKUP"]]
 auth_google <- Sys.getenv("GKEY")
-name_google <- Sys.getenv("GNAME")
-team_id <- Sys.getenv("TID")
-link <- Sys.getenv("GLINK")
-sheet_tm <- Sys.getenv("GSHEET")
-sheet_hs <- Sys.getenv("GHISTORY")
+name_google <- credentals[["GNAME"]]
+team_id <- credentals[["TID"]]
+link <- credentals[["GLINK_DB"]]
+sheet_tm <- credentals[["GTT"]]
+sheet_hs <- credentals[["GHISTORY"]]
 manual_stdate <- lubridate::as_date(Sys.getenv("STDATE"))
 
 ### utils ----

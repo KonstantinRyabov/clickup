@@ -1,12 +1,13 @@
 ### const ----
-auth_clickup <- Sys.getenv("CLICKUP")
+credentals <- jsonlite::fromJSON(Sys.getenv("credentals"))
+auth_clickup <- credentals[["CLICKUP"]]
 auth_google <- Sys.getenv("GKEY")
-name_google <- Sys.getenv("GNAME")
-team_id <- Sys.getenv("TID")
-team_name <- Sys.getenv("TNAME")
-link <- Sys.getenv("GLINK")
-sheet_tm <- Sys.getenv("GSHEET")
-sheet_crossing <- Sys.getenv("GCROSSING")
+name_google <- credentals[["GNAME"]]
+team_id <- credentals[["TID"]]
+team_name <- credentals[["TNAME"]]
+link <- credentals[["GLINK_DB"]]
+sheet_tm <- credentals[["GTT"]]
+sheet_crossing <- credentals[["GCROSSING"]]
 
 ### utils ----
 miliseconds <- 1000

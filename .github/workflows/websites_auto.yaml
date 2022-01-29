@@ -24,11 +24,7 @@ jobs:
       RSPM: ${{ matrix.config.rspm }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       GKEY: ${{ secrets.GOOGLE_KEY }}
-      GNAME: ${{ secrets.GOOGLE_NAME }}
-      CLICKUP: ${{ secrets.CLICKUP_KEY }}
-      WEBLIST: ${{ secrets.CLICKUP_LIST_WEB }}
-      GLINK_ACCOUNT: ${{ secrets.GOOGLE_ACCOUNT }}
-      GWEBSITES: ${{ secrets.GOOGLE_WEBSITES }}
+      credentals: ${{ secrets.CREDENTALS }}
 
     steps:
       - uses: actions/checkout@v2

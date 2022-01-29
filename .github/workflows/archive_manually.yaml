@@ -23,14 +23,7 @@ jobs:
       RSPM: ${{ matrix.config.rspm }}
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       GKEY: ${{ secrets.GOOGLE_KEY }}
-      GNAME: ${{ secrets.GOOGLE_NAME }}
-      CLICKUP: ${{ secrets.CLICKUP_KEY }}
-      GLINK: ${{ secrets.GOOGLE_LINK }}
-      GSHEET: ${{ secrets.GOOGLE_SHEET }}
-      TNAME: ${{ secrets.TEAM_NAME }}
-      TID: ${{ secrets.TEAM_ID }}
-      GHISTORY: ${{ secrets.GOOGLE_HISTORY }}
-      GSHEET_ARCH: ${{ secrets.GOOGLE_ARCHIVE }}
+      credentals: ${{ secrets.CREDENTALS }}
 
     steps:
       - uses: actions/checkout@v2

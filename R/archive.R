@@ -1,10 +1,11 @@
 ### const ----
+credentals <- jsonlite::fromJSON(Sys.getenv("credentals"))
 auth_google <- Sys.getenv("GKEY")
-name_google <- Sys.getenv("GNAME")
-link <- Sys.getenv("GLINK")
-sheet_tm <- Sys.getenv("GSHEET")
-sheet_archive <- Sys.getenv("GSHEET_ARCH")
-team_name <- Sys.getenv("TNAME")
+name_google <- credentals[["GNAME"]]
+link <- credentals[["GLINK_DB"]]
+sheet_tm <- credentals[["GTT"]]
+sheet_archive <- credentals[["GSHEET_ARCH"]]
+team_name <- credentals[["TNAME"]]
 ### utils ----
 time_local <- "Europe/Moscow"
 

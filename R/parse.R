@@ -1,8 +1,8 @@
 ### const ----
-credentals <- jsonlite::read_json(path = "credentals.json")
-link <- credentals[["GTEST"]]
+credentals <- jsonlite::fromJSON(Sys.getenv("credentals"))
+link <- credentals[["GLINK_PARSE"]]
 targets_parse <- credentals[["GPARSE_TARG"]]
-result_parse <- credentals[["GPARSE_TARG"]]
+result_parse <- credentals[["GPARSE_RES"]]
 time_local <- "Europe/Moscow"
 delay <- 0.3
 
@@ -27,7 +27,8 @@ get_prop <- \(item) {
   site <- html |>
     rvest::html_element(".extra-info") |>
     rvest::html_element("a") |>
-    rvest::html_attr("href")
+    rvest::html_attr("href") |>
+    stringr::str_remove_all("https://|www\\.")
 
   update_date <- html |>
     rvest::html_element(".extra-info") |>

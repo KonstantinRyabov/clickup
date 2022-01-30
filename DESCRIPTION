@@ -21,7 +21,8 @@ Imports:
   prettyunits (>= 1.1.1),
   fuzzyjoin (>= 0.1.6),
   BiocManager (>= 1.30.12),
-  jsonlite (>= 1.7.2)
+  jsonlite (>= 1.7.2),
+  rvest (>= 1.0.0)
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

@@ -13,8 +13,9 @@ manual_stdate <- lubridate::as_date(Sys.getenv("STDATE"))
 miliseconds <- 1000
 time_local <- "Europe/Moscow"
 delay <- 0.6
-st_date <- lubridate::now(tzone = time_local) - lubridate::days(25)
+st_date <- lubridate::now(tzone = time_local) - lubridate::days(45)
 start_posix <- lubridate::as_datetime("1970-01-01 00:00:00")
+err_desc <- "error with task"
 
 ### get startdate
 start_date <- if (is.na(manual_stdate)) {
@@ -72,7 +73,7 @@ get_history <- function(.id) {
   error = function(e) {
     data.frame(
       id_time = .id,
-      err_history = history_json$err
+      err_history = err_desc
     )
   }
   )

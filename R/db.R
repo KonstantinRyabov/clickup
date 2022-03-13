@@ -14,6 +14,7 @@ miliseconds <- 1000
 time_local <- "Europe/Moscow"
 delay <- 0.6
 err_num_cols <- 2
+err_desc <- "can't get list, folder, space"
 
 ### get team members id ----
 teams <- httr::GET(
@@ -112,11 +113,7 @@ get_tasks <- function(task_id, .delay, .num_cols) {
     error = function(e) {
       data.frame(
         id = task_id,
-        list_name = "",
-        folder_name = "",
-        space_id = "",
-        url = "",
-        error = "can't get list, folder, space"
+        err = err_desc
       )
     }
   )

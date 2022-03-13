@@ -13,7 +13,7 @@ manual_stdate <- lubridate::as_date(Sys.getenv("STDATE"))
 miliseconds <- 1000
 time_local <- "Europe/Moscow"
 delay <- 0.6
-st_date <- lubridate::now(tzone = time_local) - lubridate::days(45)
+st_date <- lubridate::now(tzone = time_local) - lubridate::days(25)
 start_posix <- lubridate::as_datetime("1970-01-01 00:00:00")
 
 ### get startdate

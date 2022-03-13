@@ -37,7 +37,7 @@ members_id <- unique(teams_ds$members_user_id) |>
 now_posix <- lubridate::now(tzone = time_local)
 
 ### before 3 months
-start_posix <- now_posix - lubridate::weeks(10)
+start_posix <- now_posix - lubridate::weeks(5)
 
 ### get unix time
 to_posix <- \(x){

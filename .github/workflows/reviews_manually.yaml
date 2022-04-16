@@ -3,7 +3,7 @@
 on:
   workflow_dispatch:
 
-name: parse_manually
+name: reviews_manually
 
 jobs:
   manually:
@@ -61,7 +61,7 @@ jobs:
           remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
 
-      - name: parse websites
+      - name: reviews websites
         run: |
-          source("R/parse.R")
+          source("R/reviews.R")
         shell: Rscript {0}

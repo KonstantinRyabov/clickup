@@ -4,7 +4,7 @@ auth_google <- Sys.getenv("GKEY")
 name_google <- credentals[["GNAME"]]
 link <- credentals[["GLINK_PARSE"]]
 targets_parse <- credentals[["GPARSE_TARG"]]
-result_parse <- credentals[["GPARSE_RES"]]
+result_parse <- credentals[["GPARSE_REVIEWS"]]
 time_local <- "Europe/Moscow"
 delay <- 0.3
 

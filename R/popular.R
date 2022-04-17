@@ -30,7 +30,7 @@ get_pages_prop <- \(num_page) {
     title <- item |>
       rvest::html_element(".internal")
 
-    name <- title |>
+    site <- title |>
       rvest::html_text2()
 
     link <- title |>
@@ -45,7 +45,7 @@ get_pages_prop <- \(num_page) {
       rvest::html_text2()
 
     result <- tibble::tibble(
-      Name = name,
+      Site = site,
       Link = link,
       Rating = rating,
       Icon = icon,

@@ -81,7 +81,7 @@ all_pages_prop <- purrr::map_df(pages, \(x) get_pages_prop(x)) |>
   dplyr::mutate(Icon = ifelse(is.na(.data$Icon), "", .data$Icon)) |>
   dplyr::filter(.data$Icon != "fa im im-ad") |>
   dplyr::left_join(icons, by = "Icon") |>
-  dplyr::mutate(Icon = ifelse(is.na(.data$Icon), "", .data$Value)) |>
+  dplyr::mutate(Icon = ifelse(.data$Icon == "", .data$Icon, .data$Value)) |>
   dplyr::select(-.data$Value) |>
   dplyr::mutate(Num = dplyr::row_number()) |>
   dplyr::mutate(`Other domain` = stringr::str_extract(.data$Site, "\\(.+\\)")) |>

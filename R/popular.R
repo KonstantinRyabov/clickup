@@ -5,6 +5,7 @@ name_google <- credentals[["GNAME"]]
 link <- credentals[["GLINK_PARSE"]]
 link_parse <- credentals[["LINK_WEB"]]
 result_popular <- credentals[["GPARSE_POPULAR"]]
+icon_id <- credentals[["ICONID"]]
 time_local <- "Europe/Moscow"
 num_page <- 1
 delay <- 0.3
@@ -73,12 +74,16 @@ count_pages <- rvest::read_html(first_page) |>
 
 pages <- seq_len(count_pages)
 
+### get icons ----
+icons <- googlesheets4::read_sheet(link, icon_id)
+
 all_pages_prop <- purrr::map_df(pages, \(x) get_pages_prop(x)) |>
   dplyr::mutate(Icon = ifelse(is.na(.data$Icon), "", .data$Icon)) |>
   dplyr::filter(.data$Icon != "fa im im-ad") |>
-  dplyr::group_by(.data$Page) |>
+  dplyr::left_join(icon, by = "Icon") |>
+  dplyr::mutate(Icon = ifelse(is.na(.data$Icon), "", .data$Value)) |>
+  dplyr::select(-.data$Value) |>
   dplyr::mutate(Num = dplyr::row_number()) |>
-  dplyr::ungroup() |>
   dplyr::mutate(`Other domain` = stringr::str_extract(.data$Site, "\\(.+\\)")) |>
   dplyr::mutate(Site = stringr::str_trim(stringr::str_remove(.data$Site, "\\(.+\\)"),
     side = "right"

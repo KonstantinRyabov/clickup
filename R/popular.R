@@ -80,7 +80,7 @@ icons <- googlesheets4::read_sheet(link, icon_id)
 all_pages_prop <- purrr::map_df(pages, \(x) get_pages_prop(x)) |>
   dplyr::mutate(Icon = ifelse(is.na(.data$Icon), "", .data$Icon)) |>
   dplyr::filter(.data$Icon != "fa im im-ad") |>
-  dplyr::left_join(icon, by = "Icon") |>
+  dplyr::left_join(icons, by = "Icon") |>
   dplyr::mutate(Icon = ifelse(is.na(.data$Icon), "", .data$Value)) |>
   dplyr::select(-.data$Value) |>
   dplyr::mutate(Num = dplyr::row_number()) |>

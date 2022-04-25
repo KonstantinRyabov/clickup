@@ -41,6 +41,12 @@ get_pages_prop <- \(num_page) {
       rvest::html_element(".fa") |>
       rvest::html_attr("class")
 
+    rating <- item |>
+      rvest::html_element(".rating-stars") |>
+      rvest::html_attr("style") |>
+      stringr::str_extract("[0-9]+") |>
+      as.numeric()
+
     reviews <- item |>
       rvest::html_element(".total") |>
       rvest::html_text2()
@@ -48,6 +54,7 @@ get_pages_prop <- \(num_page) {
     result <- tibble::tibble(
       Site = site,
       Link = link,
+      Rating = rating,
       Reviews = reviews,
       Icon = icon,
       Page = num_page
@@ -78,6 +85,7 @@ pages <- seq_len(count_pages)
 icons <- googlesheets4::read_sheet(link, icon_id)
 
 all_pages_prop <- purrr::map_df(pages, \(x) get_pages_prop(x)) |>
+  dplyr::mutate(Rating = (.data$Rating / 100) * 5) |>
   dplyr::mutate(Icon = ifelse(is.na(.data$Icon), "", .data$Icon)) |>
   dplyr::filter(.data$Icon != "fa im im-ad") |>
   dplyr::left_join(icons, by = "Icon") |>

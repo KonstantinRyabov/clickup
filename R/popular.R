@@ -96,6 +96,8 @@ all_pages_prop <- purrr::map_df(pages, \(x) get_pages_prop(x)) |>
   dplyr::mutate(Site = stringr::str_trim(stringr::str_remove(.data$Site, "\\(.+\\)"),
     side = "right"
   )) |>
+  dplyr::mutate(dt_load = lubridate::now(tzone = time_local)) |>
+  dplyr::mutate(dt_load = as.character(.data$dt_load)) |>
   dplyr::relocate(.data$`Other domain`, .after = .data$Site)
 
 

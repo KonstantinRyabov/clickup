@@ -39,7 +39,6 @@ get_comments <- \(num) {
     rvest::html_elements(".c-comment")
 
   get_comment_items <- \(comment) {
-
     author <- comment |>
       rvest::html_element(".c-comment__author-name") |>
       rvest::html_text()
@@ -87,6 +86,7 @@ all_comments <- purrr::map_df(num_links, \(x) get_comments(x)) |>
   dplyr::mutate(Rating = (.data$Rating / 100) * 5) |>
   dplyr::mutate(dt_load = dt_load_now) |>
   dplyr::mutate(Date = format(lubridate::mdy(.data$Date), "%Y-%m-%d")) |>
+  dplyr::mutate(Date = lubridate::as_date(.data$Date)) |>
   dplyr::mutate(Text = stringr::str_trim(.data$Text, side = "both"))
 
 ### get cache comments ----

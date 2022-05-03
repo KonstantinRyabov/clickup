@@ -73,12 +73,14 @@ all_comments <- purrr::map_df(num_links, \(x) get_comments(x)) |>
   dplyr::mutate(dt_load = dt_load_now)
 
 ### get cache comments ----
-cache_comments <- googlesheets4::read_sheet(link, comments_parse, col_types = "cccdc")
+cache_comments <- googlesheets4::read_sheet(link, comments_parse, col_types = "cccdcc") |>
+  dplyr::select(-.data$Status)
 
 ### update comments ----
 update_comments <- cache_comments |>
   dplyr::rows_upsert(all_comments, by = c("Link", "Text")) |>
-  dplyr::mutate(Status = ifelse(.data$dt_load == dt_load_now, "", "Deleted"))
+  dplyr::mutate(Status = ifelse(.data$dt_load == dt_load_now, "", "Deleted")) |>
+  dplyr::relocate(.data$Status, .before = .data$dt_load)
 
 ### write to table ----
 googlesheets4::write_sheet(

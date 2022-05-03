@@ -94,10 +94,14 @@ all_prop <- purrr::map_df(links, \(x) get_prop(x)) |>
   dplyr::mutate(`Yellow labels` = ifelse(.data$`Yellow labels` == "", NA,
     .data$`Yellow labels`
   )) |>
-  dplyr::mutate(dt_load = as.character(.data$dt_load))
+  dplyr::mutate(dt_load = as.character(.data$dt_load)) |>
+  dplyr::mutate(`Update date` = gsub("Updated:", "", .data$`Update date`)) |>
+  dplyr::mutate(`Update date` = stringr::str_trim(.data$`Update date`, side = "both")) |>
+  dplyr::mutate(`Update date` = format(lubridate::mdy(.data$`Update date`), "%Y-%m-%d")) |>
+  dplyr::mutate(`Update date` = lubridate::as_date(.data$`Update date`))
 
 ### get cache prop ----
-cache_prop <- googlesheets4::read_sheet(link, result_parse, col_types = "ccccddccccc") |>
+cache_prop <- googlesheets4::read_sheet(link, result_parse, col_types = "ccDcddccccc") |>
   dplyr::select(-c(.data$`Diff rating`, `Diff reviews`))
 
 update_prop <- cache_prop |>

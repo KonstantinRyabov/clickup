@@ -91,9 +91,6 @@ links <- seq_len(nrow(links_parse))
 
 all_prop <- purrr::map_df(links, \(x) get_prop(x)) |>
   dplyr::mutate(dt_load = lubridate::now(tzone = time_local)) |>
-  dplyr::mutate(`Yellow labels` = ifelse(.data$`Yellow labels` == "", NA,
-    .data$`Yellow labels`
-  )) |>
   dplyr::mutate(dt_load = as.character(.data$dt_load)) |>
   dplyr::mutate(`Update date` = gsub("Updated:", "", .data$`Update date`)) |>
   dplyr::mutate(`Update date` = stringr::str_trim(.data$`Update date`, side = "both")) |>
@@ -105,7 +102,7 @@ cache_prop <- googlesheets4::read_sheet(link, result_parse, col_types = "ccDcddc
   dplyr::select(-c(.data$`Diff rating`, `Diff reviews`))
 
 update_prop <- cache_prop |>
-  dplyr::rows_upsert(all_prop, by = c("Link", "Rating", "Reviews", "Yellow labels", "Scam")) |>
+  dplyr::rows_upsert(all_prop, by = c("Link", "Rating", "Reviews")) |>
   dplyr::mutate(dt_load = lubridate::as_datetime(.data$dt_load)) |>
   dplyr::arrange(.data$Name, .data$dt_load) |>
   dplyr::group_by(.data$Name) |>

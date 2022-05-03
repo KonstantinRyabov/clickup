@@ -1,5 +1,5 @@
 ### const ----
-credentals <- jsonlite::read_json("credentals.json")
+credentals <- jsonlite::fromJSON(Sys.getenv("credentals"))
 auth_google <- Sys.getenv("GKEY")
 name_google <- credentals[["GNAME"]]
 link <- credentals[["GLINK_PARSE"]]

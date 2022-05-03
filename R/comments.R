@@ -39,16 +39,17 @@ get_comments <- \(num) {
     rvest::html_elements(".c-comment")
 
   get_comment_items <- \(comment) {
-    details <- comment |>
-      rvest::html_elements(".c-comment__author-name")
 
-    author_detail <- details[2]
-
-    author <- author_detail |>
+    author <- comment |>
+      rvest::html_element(".c-comment__author-name") |>
       rvest::html_text()
 
-    date <- comment |>
-      rvest::html_elements(".c-comment__author-details") |>
+    details <- comment |>
+      rvest::html_elements(".c-comment__author-details")
+
+    date_detail <- details[2]
+
+    date <- date_detail |>
       rvest::html_text()
 
     text <- comment |>

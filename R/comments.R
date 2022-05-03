@@ -39,6 +39,18 @@ get_comments <- \(num) {
     rvest::html_elements(".c-comment")
 
   get_comment_items <- \(comment) {
+    details <- comment |>
+      rvest::html_elements(".c-comment__author-name")
+
+    author_detail <- details[2]
+
+    author <- author_detail |>
+      rvest::html_text()
+
+    date <- comment |>
+      rvest::html_elements(".c-comment__author-details") |>
+      rvest::html_text()
+
     text <- comment |>
       rvest::html_element(".c-comment__description") |>
       rvest::html_text()
@@ -52,6 +64,8 @@ get_comments <- \(num) {
     result <- tibble::tibble(
       Site = site,
       Link = link,
+      Author = author,
+      Date = date,
       Text = text,
       Rating = rating,
     )
@@ -71,10 +85,11 @@ dt_load_now <- as.character(lubridate::now(tzone = time_local))
 all_comments <- purrr::map_df(num_links, \(x) get_comments(x)) |>
   dplyr::mutate(Rating = (.data$Rating / 100) * 5) |>
   dplyr::mutate(dt_load = dt_load_now) |>
+  dplyr::mutate(Date = format(lubridate::mdy(.data$Date), "%Y-%m-%d")) |>
   dplyr::mutate(Text = stringr::str_trim(.data$Text, side = "both"))
 
 ### get cache comments ----
-cache_comments <- googlesheets4::read_sheet(link, comments_parse, col_types = "cccdcc") |>
+cache_comments <- googlesheets4::read_sheet(link, comments_parse, col_types = "cccTcdcc") |>
   dplyr::select(-.data$Status)
 
 ### update comments ----

@@ -20,7 +20,10 @@ links_parse <- googlesheets4::read_sheet(link, targets_parse) |>
 
 ### get comments ----
 get_comments <- \(num) {
-  link <- links_parse[num, ]
+  link <- links_parse[num, ] |>
+    dplyr::select(.data$links) |>
+    dplyr::pull()
+
 
   ### get comment items ----
   html <- link |>

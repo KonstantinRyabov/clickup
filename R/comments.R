@@ -65,10 +65,9 @@ get_comments <- \(num) {
   result_comments
 }
 
+### get result comments ----
 num_links <- seq_len(nrow(links_parse))
-
 dt_load_now <- as.character(lubridate::now(tzone = time_local))
-
 all_comments <- purrr::map_df(num_links, \(x) get_comments(x)) |>
   dplyr::mutate(Rating = (.data$Rating / 100) * 5) |>
   dplyr::mutate(dt_load = dt_load_now)
@@ -76,6 +75,14 @@ all_comments <- purrr::map_df(num_links, \(x) get_comments(x)) |>
 ### get cache comments ----
 cache_comments <- googlesheets4::read_sheet(link, comments_parse, col_types = "ccccc")
 
+### update comments ----
 update_comments <- cache_comments |>
   dplyr::rows_upsert(all_comments, by = c("Link", "Text")) |>
   dplyr::mutate(Status = ifelse(.data$dt_load == dt_load_now, "", "Deleted"))
+
+### write to table ----
+googlesheets4::write_sheet(
+  update_comments,
+  link,
+  comments_parse
+)

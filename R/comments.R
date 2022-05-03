@@ -70,7 +70,8 @@ num_links <- seq_len(nrow(links_parse))
 dt_load_now <- as.character(lubridate::now(tzone = time_local))
 all_comments <- purrr::map_df(num_links, \(x) get_comments(x)) |>
   dplyr::mutate(Rating = (.data$Rating / 100) * 5) |>
-  dplyr::mutate(dt_load = dt_load_now)
+  dplyr::mutate(dt_load = dt_load_now) |>
+  dplyr::mutate(Text = stringr::str_trim(.data$Text, side = "both"))
 
 ### get cache comments ----
 cache_comments <- googlesheets4::read_sheet(link, comments_parse, col_types = "cccdcc") |>

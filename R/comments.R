@@ -73,7 +73,7 @@ all_comments <- purrr::map_df(num_links, \(x) get_comments(x)) |>
   dplyr::mutate(dt_load = dt_load_now)
 
 ### get cache comments ----
-cache_comments <- googlesheets4::read_sheet(link, comments_parse, col_types = "ccccc")
+cache_comments <- googlesheets4::read_sheet(link, comments_parse, col_types = "cccdc")
 
 ### update comments ----
 update_comments <- cache_comments |>

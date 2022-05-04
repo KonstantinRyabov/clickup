@@ -101,6 +101,7 @@ cache_comments <- googlesheets4::read_sheet(link, comments_parse, col_types = "c
 update_comments <- cache_comments |>
   dplyr::rows_upsert(all_comments, by = c("Link", "Text")) |>
   dplyr::mutate(Status = ifelse(.data$dt_load == dt_load_now, "", "Deleted")) |>
+  dplyr::arrange(.data$Site, dplyr::desc(.data$Date)) |>
   dplyr::relocate(.data$Status, .before = .data$dt_load)
 
 ### write to table ----

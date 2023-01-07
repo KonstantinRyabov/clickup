@@ -3,7 +3,7 @@ credentals <- jsonlite::fromJSON(Sys.getenv("credentals"))
 auth_google <- Sys.getenv("GKEY")
 name_google <- credentals[["GNAME"]]
 link <- credentals[["GLINK_DB"]]
-sheet_tm <- credentals[["GTT"]]
+sheet_tm <- credentals[["GTT_MON"]]
 sheet_archive <- credentals[["GSHEET_ARCH"]]
 team_name <- credentals[["TNAME"]]
 ### utils ----

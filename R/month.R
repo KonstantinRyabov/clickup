@@ -201,7 +201,8 @@ googlesheets4::gs4_auth(path = name_google)
 
 
 ### update sheet
-to_sheet <- dplyr::arrange(.data$`Team member`, .data$Start)
+to_sheet <- sheet_new |>
+  dplyr::arrange(.data$`Team member`, .data$Start)
 
 ### check crossing ----
 left <- to_sheet |>

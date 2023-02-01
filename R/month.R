@@ -35,7 +35,7 @@ members_id <- unique(teams_ds$members_user_id) |>
 
 ### get time entries ----
 ### now
-now_posix <- lubridate::now()
+now_posix <- lubridate::now(tzone = time_local)
 
 ### start of month
 start_posix <- lubridate::floor_date(now_posix, "month")

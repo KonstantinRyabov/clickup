@@ -46,7 +46,7 @@ to_posix <- \(x){
     as.numeric() |>
     ceiling()
 
-  as.character(rs * miliseconds)
+    format(rs * miliseconds, scientific = FALSE)
 }
 
 now_posix <- to_posix(now_posix)
